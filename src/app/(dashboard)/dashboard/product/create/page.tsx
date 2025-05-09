@@ -48,7 +48,7 @@ const CreateProduct = () => {
     if (file) {
       const fileUrl = URL.createObjectURL(file);
       setPreviewImage(fileUrl);
-      setFormData((prev) => ({ ...prev, image_url: file }));
+      setFormData((prev) => ({ ...prev, image: file }));
     }
   };
 
@@ -68,7 +68,7 @@ const CreateProduct = () => {
 
   return (
     <section className="bg-white rounded-lg shadow-md p-4">
-      <h1 className="text-3xl text-gray-900 font-semibold ">Edit Product</h1>
+      <h1 className="text-3xl text-gray-900 font-semibold ">Create Product</h1>
       <form onSubmit={handleSubmit} className="mt-5">
         <div className="grid grid-cols-2 gap-4">
           <FormInput

@@ -70,7 +70,7 @@ const EditProduct = () => {
     if (file) {
       const fileUrl = URL.createObjectURL(file);
       setPreviewImage(fileUrl);
-      setFormData((prev) => ({ ...prev, image_url: file }));
+      setFormData((prev) => ({ ...prev, image: file }));
     }
   };
 
