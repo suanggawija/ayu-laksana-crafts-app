@@ -55,3 +55,34 @@ export const FormInputTextArea: React.FC<InputProps> = ({
     </div>
   );
 };
+
+// export const FormInputSelect: React.FC<InputProps> = ({
+//   id,
+//   name,
+//   title,
+//   value,
+//   onChange,
+//   required,
+// }) => {
+//   <div className="">
+//     <label htmlFor={id}>{title}</label>
+//     <select
+//       name={name}
+//       id={id}
+//       value={value}
+//       onChange={onChange}
+//       required={required || false}
+//     >
+//       <option value="" disabled>
+//         Select a {title}
+//       </option>
+//       {productCategories.map((category) => {
+//         return (
+//           <option key={category.id} value={category.id}>
+//             {category.name}
+//           </option>
+//         );
+//       })}
+//     </select>
+//   </div>;
+// };

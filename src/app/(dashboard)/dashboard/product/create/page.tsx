@@ -1,9 +1,7 @@
 "use client";
 import { FormInput, FormInputTextArea } from "@/components/ui/Input";
 import { getDataProductCategory } from "@/lib/api/productCategory";
-import { showDataProduct, updateDataProduct } from "@/lib/api/products";
-import { Product } from "@/types/interface/Produtcs";
-import { useParams } from "next/navigation";
+import { createDataProduct, updateDataProduct } from "@/lib/api/products";
 import React, { useEffect, useState } from "react";
 
 interface ProductCategoryProps {
@@ -11,8 +9,7 @@ interface ProductCategoryProps {
   name: string;
 }
 
-const EditProduct = () => {
-  const id = useParams().id;
+const CreateProduct = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -29,25 +26,6 @@ const EditProduct = () => {
   const [productCategories, setProductCategories] = useState<
     ProductCategoryProps[]
   >([]);
-
-  const fetchProduct = async () => {
-    try {
-      const data = await showDataProduct({ id });
-
-      setFormData({
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        stock: data.stock,
-        category_id: data.category_id,
-        category_name: data.category_name,
-        image_url: data.image_url,
-        status: data.status,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const fetchProductCategory = async () => {
     try {
@@ -77,7 +55,7 @@ const EditProduct = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateDataProduct({ id, ...formData });
+      await createDataProduct({ ...formData });
     } catch (error) {
       console.error(error);
       alert("Failed to update product.");
@@ -85,9 +63,8 @@ const EditProduct = () => {
   };
 
   useEffect(() => {
-    fetchProduct();
     fetchProductCategory();
-  }, [id]);
+  }, []);
 
   return (
     <section className="bg-white rounded-lg shadow-md p-4">
@@ -124,30 +101,14 @@ const EditProduct = () => {
             onChange={handleInputChange}
             required
           />
-          {/* <FormInput
-            id="category_id"
-            name="category_id"
-            title="Category ID"
-            placeholder="0"
-            type="text"
-            value={formData.category_name}
-            onChange={handleInputChange}
-            required
-          /> */}
-          <div className="flex flex-col">
-            <label
-              htmlFor="category_id"
-              className="text-sm font-semibold text-gray-600"
-            >
-              Category ID
-            </label>
-
+          <div className="">
+            <label htmlFor="category_id">Category</label>
             <select
-              className="text-sm p-2 mt-1 border border-gray-300 rounded"
               name="category_id"
               id="category_id"
               value={formData.category_id}
               onChange={handleInputChange}
+              required
             >
               <option value="" disabled>
                 Select a category
@@ -161,7 +122,6 @@ const EditProduct = () => {
               })}
             </select>
           </div>
-
           <FormInput
             id="status"
             name="status"
@@ -189,7 +149,7 @@ const EditProduct = () => {
             >
               Product Image
             </label>
-            <div className="w-[300px] h-[300px] border border-gray-300 rounded-lg overflow-hidden mb-2">
+            <div className="w-32 h-32 border border-gray-300 rounded-lg overflow-hidden mb-2">
               <img
                 src={previewImage || formData.image_url || "/image.jpeg"}
                 alt="Preview"
@@ -197,26 +157,19 @@ const EditProduct = () => {
               />
             </div>
             <input
-              className="text-sm p-2 mt-1 border border-gray-300 rounded"
               type="file"
               id="image"
               name="image"
-              accept="image/*"
+              accept="image/*" // Hanya menerima file gambar
               onChange={handleFileChange}
+              className="text-sm"
             />
           </div>
         </div>
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            className="mt-5 text-white bg-orange-500 py-2 px-5 rounded-md cursor-pointer"
-          >
-            Update Product
-          </button>
-        </div>
+        <button type="submit">Update Product</button>
       </form>
     </section>
   );
 };
 
-export default EditProduct;
+export default CreateProduct;

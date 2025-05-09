@@ -5,10 +5,44 @@ const API_BASE_URL = "http://localhost:8000/api/products";
 export const getDataProduct = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}`);
-    // console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching products:", error);
+  }
+};
+
+export const createDataProduct = async ({
+  ...formData
+}: {
+  [key: string]: any;
+}) => {
+  try {
+    const form = new FormData();
+
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
+    const response = await axios.post(
+      `http://localhost:8000/api/products`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    alert("Product created successfully!");
+    return response.data.data;
+  } catch (error: any) {
+    if (error.response) {
+      const { status, data } = error.response;
+      alert(`Error ${status}: ${data.message || "An error occurred"}`);
+    } else {
+      console.error("Error updating product:", error);
+      alert("An unexpected error occurred.");
+    }
   }
 };
 
@@ -31,14 +65,19 @@ export const updateDataProduct = async ({
   [key: string]: any;
 }) => {
   try {
-    const response = await axios.put(
-      `http://localhost:8000/api/products/${id}`,
-      formData,
+    const form = new FormData();
+
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
+    const response = await axios.post(
+      `http://localhost:8000/api/products/${id}?_method=PUT`,
+      form,
       {
         headers: {
-          Authorization:
-            "Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67",
-          "Content-Type": "application/json",
+          Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+          "Content-Type": "multipart/form-data",
         },
       }
     );
