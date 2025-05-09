@@ -1,4 +1,5 @@
 "use client";
+import { ButtonDanger, ButtonPrimary } from "@/components/ui/Button";
 import { deleteDataProduct, showDataProduct } from "@/lib/api/products";
 import { Product } from "@/types/interface/Produtcs";
 import Link from "next/link";
@@ -78,18 +79,8 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="flex-1 flex items-end justify-end gap-2">
-            <Link
-              href={`${product?.id}/edit`}
-              className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg transition ease-in duration-200"
-            >
-              Edit
-            </Link>
-            <button
-              onClick={deleteProduct}
-              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition ease-in duration-200"
-            >
-              Delete
-            </button>
+            <ButtonPrimary href={`${product?.id}/edit`} title="Edit" />
+            <ButtonDanger href="" title="delete" onClick={deleteProduct} />
           </div>
         </div>
       </section>

@@ -124,16 +124,7 @@ const EditProduct = () => {
             onChange={handleInputChange}
             required
           />
-          {/* <FormInput
-            id="category_id"
-            name="category_id"
-            title="Category ID"
-            placeholder="0"
-            type="text"
-            value={formData.category_name}
-            onChange={handleInputChange}
-            required
-          /> */}
+
           <div className="flex flex-col">
             <label
               htmlFor="category_id"
@@ -162,16 +153,30 @@ const EditProduct = () => {
             </select>
           </div>
 
-          <FormInput
-            id="status"
-            name="status"
-            title="Status"
-            placeholder="active"
-            type="text"
-            value={formData.status}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="flex flex-col">
+            <label
+              htmlFor="status"
+              className="text-sm font-semibold text-gray-600"
+            >
+              Category ID
+            </label>
+
+            <select
+              className="text-sm p-2 mt-1 border border-gray-300 rounded"
+              name="status"
+              id="status"
+              value={formData.status}
+              onChange={handleInputChange}
+            >
+              <option key="active" value="active">
+                active
+              </option>
+              <option key="inactive" value="inactive">
+                inactive
+              </option>
+            </select>
+          </div>
+
           <FormInputTextArea
             id="description"
             name="description"

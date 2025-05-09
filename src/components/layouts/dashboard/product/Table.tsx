@@ -1,14 +1,12 @@
 "use client";
+import { ButtonPrimary, ButtonWarning } from "@/components/ui/Button";
 import { getDataProduct } from "@/lib/api/products";
 import { Product } from "@/types/interface/Produtcs";
-import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { GoSearch, GoPencil, GoEye } from "react-icons/go";
 
 const Table = () => {
   const [products, setProducts] = useState<Product[]>([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +14,6 @@ const Table = () => {
     try {
       const data = await getDataProduct();
       setProducts(data);
-      console.log(data);
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred");
     } finally {
@@ -29,13 +26,16 @@ const Table = () => {
   }, []);
 
   return (
-    <section className="mt-5 bg-white rounded-lg shadow-sm">
+    <section className="mt-1 bg-white rounded-lg shadow-sm">
       <div className="p-5">
         <div className=" flex w-full justify-between items-center">
           <h2 className="text-semibold text-lg text-gray-800 font-semibold">
             Products
           </h2>
-          <Link href={"/dashboard/product/create"}>Create Product</Link>
+          <ButtonPrimary
+            href="/dashboard/product/create"
+            title="Create Product"
+          />
         </div>
         <div
           className="flex gap-2 items-center px-2 py-2 mt-3 text-gray-700 rounded border border-gray-500 w-[250px] focus-within:ring-1 focus-within:ring-gray-500"
@@ -93,18 +93,16 @@ const Table = () => {
                     </td>
                     <td className="h-full">
                       <div className="flex gap-2 items-center h-full">
-                        <Link
+                        <ButtonPrimary
                           href={`/dashboard/product/${product.id}`}
-                          className="h-[40px] w-[40px] flex justify-center items-center bg-orange-500 rounded-md text-xl text-white"
-                        >
-                          <GoEye />
-                        </Link>
-                        <Link
+                          title={<GoEye />}
+                          className="h-[40px] w-[40px] flex justify-center items-center"
+                        />
+                        <ButtonWarning
                           href={`/dashboard/product/${product.id}/edit`}
-                          className="h-[40px] w-[40px] flex justify-center items-center bg-yellow-500 rounded-md text-xl text-white"
-                        >
-                          <GoPencil />
-                        </Link>
+                          title={<GoPencil />}
+                          className="h-[40px] w-[40px] flex justify-center items-center"
+                        />
                       </div>
                     </td>
                   </tr>

@@ -4,9 +4,9 @@ import React from "react";
 const Product = () => {
   return (
     <main>
-      <section>
+      {/* <section>
         <div className="p-3 bg-white shadow-sm rounded-lg">p</div>
-      </section>
+      </section> */}
       <Table />
     </main>
   );

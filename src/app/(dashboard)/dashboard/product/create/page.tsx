@@ -1,4 +1,5 @@
 "use client";
+
 import { FormInput, FormInputTextArea } from "@/components/ui/Input";
 import { getDataProductCategory } from "@/lib/api/productCategory";
 import { createDataProduct, updateDataProduct } from "@/lib/api/products";
@@ -101,14 +102,19 @@ const CreateProduct = () => {
             onChange={handleInputChange}
             required
           />
-          <div className="">
-            <label htmlFor="category_id">Category</label>
+          <div className="flex flex-col">
+            <label
+              htmlFor="status"
+              className="text-sm font-semibold text-gray-600"
+            >
+              Category ID
+            </label>
             <select
+              className="text-sm p-2 mt-1 border border-gray-300 rounded"
               name="category_id"
               id="category_id"
               value={formData.category_id}
               onChange={handleInputChange}
-              required
             >
               <option value="" disabled>
                 Select a category
@@ -122,16 +128,33 @@ const CreateProduct = () => {
               })}
             </select>
           </div>
-          <FormInput
-            id="status"
-            name="status"
-            title="Status"
-            placeholder="active"
-            type="text"
-            value={formData.status}
-            onChange={handleInputChange}
-            required
-          />
+
+          <div className="flex flex-col">
+            <label
+              htmlFor="status"
+              className="text-sm font-semibold text-gray-600"
+            >
+              Status
+            </label>
+
+            <select
+              className="text-sm p-2 mt-1 border border-gray-300 rounded"
+              name="status"
+              id="status"
+              value={formData.status}
+              onChange={handleInputChange}
+            >
+              <option value="" disabled>
+                Select a status
+              </option>
+              <option key="active" value="active">
+                Active
+              </option>
+              <option key="inactive" value="inactive">
+                Inactive
+              </option>
+            </select>
+          </div>
           <FormInputTextArea
             id="description"
             name="description"
@@ -141,7 +164,6 @@ const CreateProduct = () => {
             onChange={handleInputChange}
             required
           />
-
           <div className="flex flex-col items-center">
             <label
               htmlFor="image"
@@ -149,7 +171,7 @@ const CreateProduct = () => {
             >
               Product Image
             </label>
-            <div className="w-32 h-32 border border-gray-300 rounded-lg overflow-hidden mb-2">
+            <div className="w-[300px] h-[300px] border border-gray-300 rounded-lg overflow-hidden mb-2">
               <img
                 src={previewImage || formData.image_url || "/image.jpeg"}
                 alt="Preview"
@@ -157,16 +179,23 @@ const CreateProduct = () => {
               />
             </div>
             <input
+              className="text-sm p-2 mt-1 border border-gray-300 rounded"
               type="file"
               id="image"
               name="image"
-              accept="image/*" // Hanya menerima file gambar
+              accept="image/*"
               onChange={handleFileChange}
-              className="text-sm"
             />
           </div>
         </div>
-        <button type="submit">Update Product</button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="mt-5 text-white bg-orange-500 py-2 px-5 rounded-md cursor-pointer"
+          >
+            Create Product
+          </button>
+        </div>
       </form>
     </section>
   );
