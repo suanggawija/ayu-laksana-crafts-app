@@ -1,7 +1,12 @@
+import { Table } from "@/components/layouts/dashboard/ordered";
 import React from "react";
 
 const Ordered = () => {
-  return <div>Ordered</div>;
+  return (
+    <main>
+      <Table />
+    </main>
+  );
 };
 
 export default Ordered;
