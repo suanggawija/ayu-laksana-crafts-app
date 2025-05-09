@@ -4,7 +4,7 @@ import { Product } from "@/types/interface/Produtcs";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { GoSearch } from "react-icons/go";
+import { GoSearch, GoPencil, GoEye } from "react-icons/go";
 
 const Table = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -60,7 +60,10 @@ const Table = () => {
             <tbody>
               {products.map((product, index) => {
                 return (
-                  <tr key={product.id} className="border-b-1 border-gray-300">
+                  <tr
+                    key={product.id}
+                    className="border-b-1 border-gray-300 items-center"
+                  >
                     <td>{index + 1}</td>
                     <td className="text-center">
                       <img
@@ -88,10 +91,21 @@ const Table = () => {
                     <td className=" font-bold text-gray-600">
                       {product.stock}
                     </td>
-                    <td>
-                      <Link href={`/dashboard/product/${product.id}`}>
-                        Detail
-                      </Link>
+                    <td className="h-full">
+                      <div className="flex gap-2 items-center h-full">
+                        <Link
+                          href={`/dashboard/product/${product.id}`}
+                          className="h-[40px] w-[40px] flex justify-center items-center bg-orange-500 rounded-md text-xl text-white"
+                        >
+                          <GoEye />
+                        </Link>
+                        <Link
+                          href={`/dashboard/product/${product.id}/edit`}
+                          className="h-[40px] w-[40px] flex justify-center items-center bg-yellow-500 rounded-md text-xl text-white"
+                        >
+                          <GoPencil />
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 );
