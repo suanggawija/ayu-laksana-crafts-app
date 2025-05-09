@@ -25,10 +25,6 @@ const Table = () => {
           <h2 className="text-semibold text-lg text-gray-800 font-semibold">
             Ordered
           </h2>
-          <ButtonPrimary
-            href="/dashboard/product/create"
-            title="Create Product"
-          />
         </div>
         <div
           className="flex gap-2 items-center px-2 py-2 mt-3 text-gray-700 rounded border border-gray-500 w-[250px] focus-within:ring-1 focus-within:ring-gray-500"
