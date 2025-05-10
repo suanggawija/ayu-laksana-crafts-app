@@ -13,7 +13,7 @@ export const FormInput: React.FC<InputProps> = ({
   return (
     <div className="flex flex-col">
       <label htmlFor={id} className="text-sm font-semibold text-gray-600">
-        {title}
+        {title} <span className="text-red-500">{required ? "*" : ""}</span>
       </label>
       <input
         className="text-sm p-2 mt-1 border border-gray-300 rounded"
