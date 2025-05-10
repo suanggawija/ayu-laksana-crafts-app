@@ -10,7 +10,7 @@ import {
 } from "@/lib/api/productCategory";
 import { ProductCategory } from "@/types/interface/ProductCategories";
 import React, { useEffect, useState } from "react";
-import { GoEye, GoPencil, GoSearch } from "react-icons/go";
+import { GoEye, GoPencil, GoSearch, GoTrash } from "react-icons/go";
 
 const Table = () => {
   const [productCategories, setProductCategories] = useState<ProductCategory[]>(
@@ -96,7 +96,8 @@ const Table = () => {
                         />
                         <ButtonDanger
                           href=""
-                          title="delete"
+                          title={<GoTrash />}
+                          className="h-[40px] w-[40px] flex justify-center items-center"
                           onClick={() => deleteProduct({ id: category.id })}
                         />
                       </div>
