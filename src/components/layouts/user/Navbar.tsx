@@ -1,5 +1,6 @@
 "use client";
 import { ButtonPrimary } from "@/components/ui/Button";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -33,7 +34,15 @@ const Navbar = () => {
       }`}
     >
       <div className="flex items-center gap-4">
-        <div className="">Logo</div>
+        <Link className="" href={"/"}>
+          <Image
+            src={"/images/Logo.svg"}
+            alt="Logo"
+            width={80}
+            height={80}
+            priority
+          />
+        </Link>
         <ul className="flex gap-4 text-sm items-center">
           {Menus().map((menu, index) => (
             <li key={index}>
@@ -44,7 +53,7 @@ const Navbar = () => {
                     ? "text-orange-500  font-semibold"
                     : scrolled
                     ? "text-gray-600"
-                    : "text-gray-300"
+                    : "text-gray-600"
                 } capitalize hover:text-orange-500 transition ease-in duration-200`}
               >
                 {menu.name}
