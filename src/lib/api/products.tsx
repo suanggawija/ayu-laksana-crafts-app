@@ -2,9 +2,21 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8000/api/products";
 
-export const getDataProduct = async () => {
+export const getDataProduct = async ({
+  search = "",
+  per_page = 10,
+  page = 1,
+}: {
+  search?: string;
+  per_page?: number;
+  page?: number;
+} = {}) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}`);
+    const response = await axios.get(
+      `${API_BASE_URL}?search=${encodeURIComponent(
+        search
+      )}&per_page=${per_page}&page=${page}`
+    );
     return response.data.data;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -123,5 +135,20 @@ export const deleteDataProduct = async ({ id }: { id: any }) => {
       console.error("Error deleting product:", error);
       alert("An unexpected error occurred.");
     }
+  }
+};
+
+export const getMostOrderedDataProducts = async ({
+  limit = 5,
+}: {
+  limit?: number;
+} = {}) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/most-ordered?&limit=${limit}`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
   }
 };

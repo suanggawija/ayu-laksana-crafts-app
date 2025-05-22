@@ -9,11 +9,20 @@ const Table = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [search, setSearch] = useState("");
 
   const fetchProducts = async () => {
     try {
-      const data = await getDataProduct();
+      setLoading(true);
+      const data = await getDataProduct({
+        per_page: perPage,
+        page: page,
+        search,
+      });
       setProducts(data);
+      setLoading(false);
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred");
     } finally {
@@ -21,9 +30,23 @@ const Table = () => {
     }
   };
 
+  const nextPage = () => {
+    if (products.length === perPage) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+  const prevPage = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  };
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    const timeout = setTimeout(() => {
+      fetchProducts();
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [page, perPage, search]);
 
   return (
     <section className="mt-1 bg-white rounded-lg shadow-sm">
@@ -42,7 +65,13 @@ const Table = () => {
           tabIndex={-1}
         >
           <GoSearch />
-          <input type="text" placeholder="search" className="outline-none" />
+          <input
+            type="text"
+            className="outline-none"
+            placeholder="Cari Produk"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className="mt-3">
           <table className="table-auto w-full">
@@ -110,6 +139,35 @@ const Table = () => {
               })}
             </tbody>
           </table>
+        </div>
+        <div className="">
+          {/* <button onClick={() => nextPage()}>next</button> */}
+          <button
+            disabled={loading || page === 1}
+            onClick={() => prevPage()}
+            className={`${
+              loading || page === 1
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+            } text-white px-4 py-2 rounded mr-2`}
+          >
+            {loading ? "Loading..." : "Prev"}
+          </button>
+
+          <span className="text-gray-600">
+            Page {page} of {Math.ceil(products.length / perPage)}
+          </span>
+          <button
+            disabled={loading || products.length < perPage}
+            onClick={() => nextPage()}
+            className={`${
+              loading || products.length < perPage
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+            } text-white px-4 py-2 rounded mr-2`}
+          >
+            {loading ? "Loading..." : "Next"}
+          </button>
         </div>
       </div>
     </section>
