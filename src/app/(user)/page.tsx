@@ -8,7 +8,7 @@ import {
 
 export default function Home() {
   return (
-    <main>
+    <main className="overflow-hidden">
       <Hero />
       <BestProductSection />
       <ProductCategoriesSection />

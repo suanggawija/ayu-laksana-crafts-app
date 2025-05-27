@@ -1,58 +1,66 @@
+"use client";
 import { ButtonPrimary } from "@/components/ui/Button";
 import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="w-full h-screen relative">
-      <Image
-        src={"/image.jpeg"}
-        alt=""
-        fill
-        style={{ objectFit: "cover" }}
-        priority
-      />
-      {/* Overlay gradient from left (black) to right (transparent) */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%)",
-        }}
-      />
-      <div className="absolute top-0 left-0 h-full flex flex-col justify-center items-start z-20 px-12">
-        <h1 className="text-white text-6xl font-bold mb-2 w-1/2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </h1>
-        <p className="text-white mt-2 w-1/2">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro
-          ratione eligendi nemo ea perspiciatis vitae omnis magnam ad quas quod!
-        </p>
-        <div className="mt-8">
-          <ButtonPrimary title="Liaht Produk" href="/product" />
+    <section className="w-full min-h-screen px-6 md:px-12 mt-24 md:mt-0">
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="flex flex-col justify-center items-start md:h-screen z-20">
+          <motion.h1
+            className="text-orange-500 text-3xl md:text-5xl text-center md:text-left font-bold mb-2"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            Temukan Sentuhan Elegan untuk Setiap Sudut Rumah Anda
+          </motion.h1>
+          <motion.p
+            className="text-gray-600 text-center md:text-left mt-2"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            Percantik rumah Anda dengan pilihan furniture elegan dan menarik.
+            Temukan berbagai produk yang sesuai dengan gaya dan kebutuhan Anda.
+          </motion.p>
+          <motion.div
+            className="mt-8 flex w-full justify-center md:justify-start"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <ButtonPrimary title="Lihat Produk" href="/product" />
+          </motion.div>
         </div>
-      </div>
-      <div className="w-full flex justify-center">
-        <div className="absolute bg-white w-3/4 h-[120px] bottom-[-60px] z-20 rounded-full flex justify-between items-center px-12">
-          <div className="w-full text-center grid grid-cols-4">
-            <div className="flex flex-col">
-              <span className="text-5xl font-bold">500+</span>
-              <span>Terjual</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-5xl font-bold">100+</span>
-              <span>Varian Produk</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-5xl font-bold">200+</span>
-              <span>Konsimen Aktif</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-5xl font-bold">32</span>
-              <span>Mitra</span>
-            </div>
-          </div>
-        </div>
+        <motion.div
+          className="relative scale-95"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            className="relative w-full h-[300px] md:h-full"
+            animate={{ y: [30, 20, 30] }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "easeInOut",
+            }}
+          >
+            <Image
+              src={"/images/bennerimage.png"}
+              alt="benner"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

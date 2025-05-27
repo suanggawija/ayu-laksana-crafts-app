@@ -4,6 +4,8 @@ import { ProductCart, ProductCartLoading } from "@/components/ui/Cart";
 import { getDataProduct } from "@/lib/api/products";
 import type { Product } from "@/types/interface/Produtcs";
 import React, { useCallback, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Product = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -33,10 +35,11 @@ const Product = () => {
     setIsLoadingMore(true);
     setPerPage((prevPerPage) => prevPerPage + 8);
   };
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       fetchProducts();
-    }, 400); // delay 400ms
+    }, 400);
 
     return () => clearTimeout(timeout);
   }, [fetchProducts]);
@@ -48,10 +51,22 @@ const Product = () => {
           <SidebarCategory />
         </div>
         <div className="col-span-5">
-          <h1 className="text-3xl text-orange-500 font-semibold mb-4">
-            Produk{" "}
-          </h1>
-          <div className=" sticky top-18 z-20">
+          <motion.h1
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl text-orange-500 font-semibold mb-4"
+          >
+            Produk
+          </motion.h1>
+
+          {/* Search Box with animation */}
+          <motion.div
+            className="sticky top-18 z-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+          >
             <input
               type="text"
               className="bg-white px-4 py-2 mb-4 rounded-lg shadow-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -59,28 +74,83 @@ const Product = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
-          <div className="grid grid-cols-4 gap-4">
-            {loading
-              ? Array.from({ length: 8 }).map((_, idx) => (
-                  <ProductCartLoading key={idx} />
-                ))
-              : products.map((product: Product) => (
-                  <ProductCart
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-4 gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            {loading ? (
+              Array.from({ length: 8 }).map((_, idx) => (
+                <ProductCartLoading key={idx} />
+              ))
+            ) : products.length === 0 ? (
+              <div className="col-span-4 flex flex-col items-center text-center mt-8">
+                <p className="text-gray-500 text-lg mt-4">
+                  Produk tidak ditemukan
+                </p>
+                <Image
+                  src="/images/no-data.png"
+                  alt="No Product"
+                  width={300}
+                  height={300}
+                />
+              </div>
+            ) : (
+              <AnimatePresence>
+                {products.map((product: Product) => (
+                  <motion.div
                     key={product.id}
-                    id={product.id}
-                    name={product.name}
-                    price={product.price}
-                    image_url={product.image_url}
-                  />
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <ProductCart
+                      id={product.id}
+                      name={product.name}
+                      price={product.price}
+                      image_url={product.image_url}
+                    />
+                  </motion.div>
                 ))}
-            {/* Loading skeleton hanya saat load more */}
+              </AnimatePresence>
+            )}
+
             {isLoadingMore &&
               Array.from({ length: 8 }).map((_, idx) => (
-                <ProductCartLoading key={`loading-${idx}`} />
+                <AnimatePresence key={`loading-${idx}`}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <ProductCartLoading />
+                  </motion.div>
+                </AnimatePresence>
               ))}
-          </div>
-          <div className="flex justify-end w-full">
+          </motion.div>
+
+          {/* Load More Button */}
+          <motion.div
+            className={
+              products.length === 0 ? "hidden" : "flex justify-end w-full"
+            }
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
             <button
               disabled={loading || products.length < perPage}
               onClick={() => LoadMoreProducts()}
@@ -88,7 +158,7 @@ const Product = () => {
                 loading || products.length < perPage
                   ? "bg-gray-300 cursor-not-allowed"
                   : "bg-blue-500 hover:bg-blue-600"
-              } text-white px-4 py-2 rounded mr-2 mt-5`}
+              } text-white px-4 py-2 rounded mr-2 mt-5 transition-all duration-300`}
             >
               {loading
                 ? "Loading..."
@@ -96,7 +166,7 @@ const Product = () => {
                 ? "No More Products"
                 : "Load More"}
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

@@ -3,10 +3,5 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      <div className="">Auth Layout</div>
-      {children}
-    </div>
-  );
+  return <div className="bg-gray-100">{children}</div>;
 }
