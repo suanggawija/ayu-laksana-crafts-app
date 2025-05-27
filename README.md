@@ -38,18 +38,19 @@ Ayu Laksana Craf Company Profile web app application built with Next.js, Laravel
 
 ## 📁 Folder Structure (Front End)
 
-````bash
+```bash
 ├── src/
     ├── app/
     │   ├── (user)/
     │   └── (dashboard)/
-    |   └── (auth)/
+    │   └── (auth)/
     ├── components/
     ├── lib/
     ├── types/
 ├── public/
 └── README.md
 
+```
 
 ## 📁 First, run the development server:
 
@@ -61,6 +62,7 @@ yarn dev
 pnpm dev
 # or
 bun dev
-````
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
