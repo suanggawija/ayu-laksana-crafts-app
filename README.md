@@ -32,7 +32,7 @@ Ayu Laksana Craf Company Profile web app application built with Next.js, Laravel
 **Backend**:
 
 - [Laravel](https://https://laravel.com/)
-- [MySQL] (https://https://mysql.com/)
+- [MySQL](https://https://mysql.com/)
 
 ---
 
