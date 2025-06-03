@@ -1,12 +1,14 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
+const token = Cookies.get("token");
 const API_BASE_URL = "http://localhost:8000/api/orders";
 
 export const getDataOrders = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}`, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data.data;
@@ -19,7 +21,7 @@ export const showDataOrder = async ({ id }: { id: any }) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/${id}`, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(response.data.data);

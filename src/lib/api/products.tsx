@@ -1,5 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
+const token = Cookies.get("token");
 const API_BASE_URL = "http://localhost:8000/api/products";
 
 export const getDataProduct = async ({
@@ -40,7 +42,7 @@ export const createDataProduct = async ({
       form,
       {
         headers: {
-          Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       }
@@ -88,7 +90,7 @@ export const updateDataProduct = async ({
       form,
       {
         headers: {
-          Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       }
@@ -112,8 +114,7 @@ export const deleteDataProduct = async ({ id }: { id: any }) => {
       `http://localhost:8000/api/products/${id}`,
       {
         headers: {
-          Authorization:
-            "Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

@@ -1,5 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
+const token = Cookies.get("token");
 const API_BASE_URL = "http://localhost:8000/api/product-categories";
 
 // Get Data ===========================================================
@@ -7,7 +9,7 @@ export const getDataProductCategory = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}`, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data.data;
@@ -30,7 +32,7 @@ export const createDataProductCaregory = async ({
     }
     const response = await axios.post(`${API_BASE_URL}`, form, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -46,7 +48,7 @@ export const showDataProductCaregory = async ({ id }: { id: any }) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/${id}`, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data.data;
@@ -71,7 +73,7 @@ export const updateDataProductCaregory = async ({
     }
     const response = await axios.put(`${API_BASE_URL}/${id}`, form, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -87,7 +89,7 @@ export const deleteDataProductCaregory = async ({ id }: { id: any }) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/${id}`, {
       headers: {
-        Authorization: `Bearer 7|kcFNjVhRi8GtHCHTJUFdz6Qm3JXc8tmLZJ839BFbf1168b67`,
+        Authorization: `Bearer ${token}`,
       },
     });
     alert("Product deleted successfully!");
