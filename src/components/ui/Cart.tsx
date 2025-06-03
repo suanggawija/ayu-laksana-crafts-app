@@ -140,6 +140,7 @@ export const CartCard = (props: any) => {
       <div className="w-full">
         <h2 className="text-xl font-semibold mb-2">{props.product.name}</h2>
         <p className="text-gray-600 mb-4">{props.product.description}</p>
+        <div className="">Quantity: {props.quantity}</div>
         <div className="flex justify-between items-center">
           <span className="text-lg font-bold">{props.product.price}</span>
           <button

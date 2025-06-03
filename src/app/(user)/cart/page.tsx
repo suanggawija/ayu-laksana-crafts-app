@@ -28,7 +28,7 @@ const Cart = () => {
     try {
       setLoading(true);
       const data = await getDataCarts(token);
-      // console.log(data);
+      console.log(data);
       if (data) {
         setCartItems(data);
       } else {
